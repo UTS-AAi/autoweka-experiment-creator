@@ -1,11 +1,19 @@
 package aai;
 
 import org.apache.commons.io.FileUtils;
+import weka.core.Instances;
 
 import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
 
+import weka.core.converters.ConverterUtils;
+import weka.core.converters.ConverterUtils.DataSource;
+
+/**
+ * The file creates number of eperiments from initial experiment file and initial dataset. It takes a setting file as
+ * the argument.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -16,11 +24,10 @@ public class Main {
         }
 
         String inputFolder = null;
-        String trainFileNameBase = null;
-        String testFileNameBase = null;
         String outputFolder = null;
-        int experimentsToCreate = 0;
+        int nuberOfFolds = 0;
         String folderSeperator = null;
+        String originalDataName = null;
 
         InputStream input = null;
         try {
@@ -30,12 +37,11 @@ public class Main {
             // load a properties file
             prop.load(input);
 
-            inputFolder = prop.getProperty("inputFolder");
-            trainFileNameBase = prop.getProperty("trainFileNameBase");
-            testFileNameBase = prop.getProperty("testFileNameBase");
-            outputFolder = prop.getProperty("outputFolder");
-            experimentsToCreate = Integer.parseInt(prop.getProperty("experimentsToCreate"));
+            inputFolder = prop.getProperty("experimentInputFolder");
+            outputFolder = prop.getProperty("experimentOutputFolder");
+            nuberOfFolds = Integer.parseInt(prop.getProperty("nuberOfFolds"));
             folderSeperator = prop.getProperty("folderSeperator");
+            originalDataName = prop.getProperty("originalDataName");
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -50,7 +56,8 @@ public class Main {
             }
         }
 
-        for (int i = 1; i < experimentsToCreate + 1; ++i) {
+        // Creating experiments.
+        for (int i = 1; i < nuberOfFolds; ++i) {
 
             String destinationFolder = outputFolder + i;
 
@@ -91,9 +98,11 @@ public class Main {
             }
 
             experimentContent =
-                    experimentContent.replaceAll(trainFileNameBase + "1", trainFileNameBase + i);
+                    experimentContent.replaceAll(originalDataName + "Train1", originalDataName +
+                            "Train" + i);
             experimentContent =
-                    experimentContent.replaceAll(testFileNameBase + "1", testFileNameBase + i);
+                    experimentContent.replaceAll(originalDataName + "Test1", originalDataName +
+                            "Test" + i);
 
             experimentContent =
                     experimentContent.replaceAll(originalExperimentName, destinationExperimentName);
@@ -118,9 +127,11 @@ public class Main {
             }
 
             scenarioContent =
-                    scenarioContent.replaceAll(trainFileNameBase + "1", trainFileNameBase + i);
+                    scenarioContent.replaceAll(originalDataName + "Train1", originalDataName + "Train"
+                            + i);
             scenarioContent =
-                    scenarioContent.replaceAll(testFileNameBase + "1", testFileNameBase + i);
+                    scenarioContent.replaceAll(originalDataName + "Test1", originalDataName + "Test"
+                            + i);
 
 
             try {
@@ -131,8 +142,6 @@ public class Main {
                 return;
             }
         }
-
-
 
     }
 }
