@@ -98,10 +98,10 @@ public class Main {
             }
 
             experimentContent =
-                    experimentContent.replaceAll(originalDataName + "Train1", originalDataName +
+                    experimentContent.replaceAll(originalDataName + "Train0", originalDataName +
                             "Train" + i);
             experimentContent =
-                    experimentContent.replaceAll(originalDataName + "Test1", originalDataName +
+                    experimentContent.replaceAll(originalDataName + "Test0", originalDataName +
                             "Test" + i);
 
             experimentContent =
@@ -127,10 +127,10 @@ public class Main {
             }
 
             scenarioContent =
-                    scenarioContent.replaceAll(originalDataName + "Train1", originalDataName + "Train"
+                    scenarioContent.replaceAll(originalDataName + "Train0", originalDataName + "Train"
                             + i);
             scenarioContent =
-                    scenarioContent.replaceAll(originalDataName + "Test1", originalDataName + "Test"
+                    scenarioContent.replaceAll(originalDataName + "Test0", originalDataName + "Test"
                             + i);
 
 
