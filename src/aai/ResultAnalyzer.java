@@ -67,6 +67,7 @@ public class ResultAnalyzer {
                     GetBestFromTrajectoryGroup trajectoryGroup = new GetBestFromTrajectoryGroup(trajectoryFileName);
 
                     System.out.println(experimentName + "\t" + trajectoryGroup.errorEstimate + "\t" +
+                            trajectoryGroup.numEval + "\t" + trajectoryGroup.numTimeOut +
                             trajectoryGroup.classifierClass + "\t" + trajectoryGroup.classifierArgs);
                 }catch(Exception e) {
                     System.out.println("Skipped " + experimentNames[j]);
