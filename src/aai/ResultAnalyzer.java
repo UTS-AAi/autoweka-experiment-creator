@@ -53,8 +53,8 @@ public class ResultAnalyzer {
         }
 
         String experimentsFolder = outputFolder.substring(0, outputFolder.lastIndexOf(folderSeperator));
-        String [] experimentNames = {"Surface2h", "XlevelClass42h", "XlevelClass52h",
-                "DipClass42h", "DipClass52h"};
+        String [] experimentNames = {"SurfaceEnsambleTrainTestSplit1h", "XlevelClass41h", "XlevelClass51h",
+                "DipClass41h", "DipClass51h"};
 
         for (int j = 0; j < experimentNames.length; ++ j) {
             outputFolder = experimentsFolder + folderSeperator + experimentNames[j];
@@ -67,7 +67,7 @@ public class ResultAnalyzer {
                     GetBestFromTrajectoryGroup trajectoryGroup = new GetBestFromTrajectoryGroup(trajectoryFileName);
 
                     System.out.println(experimentName + "\t" + trajectoryGroup.errorEstimate + "\t" +
-                            trajectoryGroup.numEval + "\t" + trajectoryGroup.numTimeOut +
+                            trajectoryGroup.numEval + "\t" + trajectoryGroup.numTimeOut + "\t" +
                             trajectoryGroup.classifierClass + "\t" + trajectoryGroup.classifierArgs);
                 }catch(Exception e) {
                     System.out.println("Skipped " + experimentNames[j]);
