@@ -53,20 +53,25 @@ public class ResultAnalyzer {
         }
 
         String experimentsFolder = outputFolder.substring(0, outputFolder.lastIndexOf(folderSeperator));
-        String [] experimentNames = {"SurfaceEnsambleTrainTestSplit1h", "XlevelClass41h", "XlevelClass51h",
-                "DipClass41h", "DipClass51h"};
+        String [] experimentNames = {"Surface2h", "XlevelClass42h", "XlevelClass52h",
+                "DipClass42h", "DipClass52h"};
 
         for (int j = 0; j < experimentNames.length; ++ j) {
             outputFolder = experimentsFolder + folderSeperator + experimentNames[j];
             for (int i = 0; i < nuberOfFolds; ++i) {
-                String experimentName = outputFolder.substring(outputFolder.lastIndexOf(folderSeperator) + 1);
+                try {
+                    String experimentName = outputFolder.substring(outputFolder.lastIndexOf(folderSeperator) + 1);
 
-                String trajectoryFileName = i == 0 ? outputFolder + folderSeperator + experimentName + ".trajectories.0"
-                        : outputFolder + i + folderSeperator + experimentName + i + ".trajectories.0";
-                GetBestFromTrajectoryGroup trajectoryGroup = new GetBestFromTrajectoryGroup(trajectoryFileName);
+                    String trajectoryFileName = i == 0 ? outputFolder + folderSeperator + experimentName + ".trajectories.0"
+                            : outputFolder + i + folderSeperator + experimentName + i + ".trajectories.0";
+                    GetBestFromTrajectoryGroup trajectoryGroup = new GetBestFromTrajectoryGroup(trajectoryFileName);
 
-                System.out.println(experimentName + "\t" + trajectoryGroup.errorEstimate + "\t" +
-                        trajectoryGroup.classifierClass + "\t" + trajectoryGroup.classifierArgs);
+                    System.out.println(experimentName + "\t" + trajectoryGroup.errorEstimate + "\t" +
+                            trajectoryGroup.classifierClass + "\t" + trajectoryGroup.classifierArgs);
+                }catch(Exception e) {
+                    System.out.println("Skipped " + experimentNames[j]);
+                    continue;
+                }
             }
         }
     }
